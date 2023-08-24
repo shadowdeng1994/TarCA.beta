@@ -1,12 +1,11 @@
 Package: TarCA.beta
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Type: Package
+Title: Targeting coalescent analysis (beta version)
+Version: 0.2.0
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+    person("Shanjun", "Deng", , "shadowdeng1994@163.com", role = c("aut","cre","ctb"))
+Description: The method, termed as targeting coalescent analysis (TCA), computes for all cells of a tissue the average coalescent rate at the monophyletic clades of the target tissue, the inverse of which then measures the progenitor number of the tissue. To achieve a higher computational efficiency, we rewrite the entire package in a more compact way. 
+License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
