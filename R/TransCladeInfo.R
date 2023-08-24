@@ -6,7 +6,7 @@
 #' @export
 #'
 #' @examples
-#' library(TarCA)
+#' library(TarCA.beta)
 #' tmp.cladesize <- "1 (12), 2 (1), 3 (2)"
 #' fun.TransCladeInfo(tmp.cladesize)
 #'

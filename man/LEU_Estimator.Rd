@@ -22,7 +22,7 @@ A dataframe storing the inferred Np for a focal gene.
 Detection of lineage specific expression upregulation.
 }
 \examples{
-library("TarCA")
+library("TarCA.beta")
 load(system.file("Exemplar","Exemplar_LEU.RData",package = "TarCA"))
 tmp.res <- LEU_Estimator(
 Tree = ExemplarData_2$Tree,

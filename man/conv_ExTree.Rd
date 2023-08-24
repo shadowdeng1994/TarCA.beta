@@ -20,7 +20,7 @@ Return a ExTree file.
 Convert a tree file and a annotation dataframe to ExTree format.
 }
 \examples{
-library("TarCA")
+library("TarCA.beta")
 load(system.file("Exemplar","Exemplar_TCA.RData",package = "TarCA"))
 tmp.ExTree <- conv_ExTree(Tree = ExemplarData_1$Tree,Ann = ExemplarData_1$Ann)
 }

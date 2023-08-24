@@ -7,7 +7,7 @@
 #' @export
 #'
 #' @examples
-#' library(TarCA)
+#' library(TarCA.beta)
 #' set.seed(123)
 #' tmp.tree <- rtree(100)
 #' fun.MergePolytomy(tmp.tree,EEEpsilon = 0.1)

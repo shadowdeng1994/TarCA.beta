@@ -22,7 +22,7 @@ A dataframe storing the inferred Np for each cell type.
 Estimate Np using cell phylogeny for each sub-population.
 }
 \examples{
-library("TarCA")
+library("TarCA.beta")
 load(system.file("Exemplar","Exemplar_TCA.RData",package = "TarCA"))
 tmp.res <- Np_Estimator(
 Tree = ExemplarData_1$Tree,

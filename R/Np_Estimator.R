@@ -10,7 +10,7 @@
 #' @export
 #'
 #' @examples
-#' library("TarCA")
+#' library("TarCA.beta")
 #' load(system.file("Exemplar","Exemplar_TCA.RData",package = "TarCA"))
 #' tmp.res <- Np_Estimator(
 #' Tree = ExemplarData_1$Tree,

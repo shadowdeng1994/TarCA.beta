@@ -16,7 +16,7 @@ A dataframe with the columns of clade size and frequency.
 Transform clade infomation into a dataframe
 }
 \examples{
-library(TarCA)
+library(TarCA.beta)
 tmp.cladesize <- "1 (12), 2 (1), 3 (2)"
 fun.TransCladeInfo(tmp.cladesize)
 
