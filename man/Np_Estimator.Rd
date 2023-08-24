@@ -4,7 +4,7 @@
 \alias{Np_Estimator}
 \title{Estimate Np using cell phylogeny for each sub-population.}
 \usage{
-Np_Estimator(Tree, Ann, ExTree = NULL)
+Np_Estimator(Tree, Ann, ExTree = NULL, ReturnExTree = FALSE)
 }
 \arguments{
 \item{Tree}{A tree file of class "phylo" with node labels (using node ID by default).}
@@ -12,9 +12,11 @@ Np_Estimator(Tree, Ann, ExTree = NULL)
 \item{Ann}{A dataframe with TipLabel and TipAnn (tip labels on the tree file and corresponding cell annotations).}
 
 \item{ExTree}{(optional) A ExTree file obtained from conv_ExTree.}
+
+\item{ReturnExTree}{Output in ExTree format (default FALSE).}
 }
 \value{
-A list containing Tree, Ann, PureNode, PureNode2Organ and EffN. The estimated Np are store in EffN.
+A dataframe storing the inferred Np for each cell type.
 }
 \description{
 Estimate Np using cell phylogeny for each sub-population.

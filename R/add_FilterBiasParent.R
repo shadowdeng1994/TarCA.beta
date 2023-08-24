@@ -1,15 +1,11 @@
-#' Title
+#' Function for adding FilterBiasParent field to a ExTree file.
 #'
 #' @param ExTree A ExTree file obtained from conv_ExTree.
 #'
-#' @return Return
+#' @return Return a ExTree file.
 #'
 #' @export
 #'
-#' @examples
-#' library("TarCA")
-#' Example
-
 
 add_FilterBiasParent <- function(ExTree){
     ## this function is used for filtering the bias node on different hierarchy.

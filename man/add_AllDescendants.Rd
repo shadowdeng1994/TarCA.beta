@@ -2,7 +2,7 @@
 % Please edit documentation in R/add_AllDescendants.R
 \name{add_AllDescendants}
 \alias{add_AllDescendants}
-\title{Title}
+\title{Function for adding AllDescendants field to a ExTree file.}
 \usage{
 add_AllDescendants(ExTree)
 }
@@ -10,12 +10,8 @@ add_AllDescendants(ExTree)
 \item{ExTree}{A ExTree file obtained from conv_ExTree.}
 }
 \value{
-Return
+Return a ExTree file.
 }
 \description{
-Title
-}
-\examples{
-library("TarCA")
-Example
+Function for adding AllDescendants field to a ExTree file.
 }

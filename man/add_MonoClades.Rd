@@ -2,7 +2,7 @@
 % Please edit documentation in R/add_MonoClades.R
 \name{add_MonoClades}
 \alias{add_MonoClades}
-\title{Title}
+\title{Function for adding MonoClades field to a ExTree file.}
 \usage{
 add_MonoClades(ExTree)
 }
@@ -10,12 +10,8 @@ add_MonoClades(ExTree)
 \item{ExTree}{A ExTree file obtained from conv_ExTree.}
 }
 \value{
-Return
+Return a ExTree file.
 }
 \description{
-Title
-}
-\examples{
-library("TarCA")
-Example
+Function for adding MonoClades field to a ExTree file.
 }

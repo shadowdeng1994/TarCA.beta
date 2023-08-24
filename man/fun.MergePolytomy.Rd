@@ -17,3 +17,10 @@ A list containing processed tree and distribution of the edge length.
 \description{
 Merge short edge into polytomy
 }
+\examples{
+library(TarCA)
+set.seed(123)
+tmp.tree <- rtree(100)
+fun.MergePolytomy(tmp.tree,EEEpsilon = 0.1)
+
+}

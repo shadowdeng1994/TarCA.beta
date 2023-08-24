@@ -1,14 +1,11 @@
-#' Title
+#' Function for adding AllDescendants field to a ExTree file.
 #'
 #' @param ExTree A ExTree file obtained from conv_ExTree.
 #'
-#' @return Return
+#' @return Return a ExTree file.
 #'
 #' @export
 #'
-#' @examples
-#' library("TarCA")
-#' Example
 
 
 add_AllDescendants <- function(ExTree){

@@ -1,15 +1,11 @@
-#' Title
+#' Function for adding ExpreBias field during LEU estimation.
 #'
 #' @param ExTree A ExTree file obtained from conv_ExTree.
 #'
-#' @return Return
+#' @return Return a ExTree file.
 #'
 #' @export
 #'
-#' @examples
-#' library("TarCA")
-#' Example
-
 
 add_ExpreBias <- function(ExTree){
     message("===> Adding ExpreBias")
@@ -17,7 +13,7 @@ add_ExpreBias <- function(ExTree){
     tmp.res <- 
     ExTree$Name2Meta %>% filter(!isTip) %>% rownames %>% 
     lapply(function(nnn){
-        tmp.background <- sum(Ann$TipAnn)/nrow(Ann)
+        tmp.background <- sum(ExTree$Ann$TipAnn)/nrow(ExTree$Ann)
         tmp.modiann <- ExTree$AllDescendants[[nnn]] %>% mutate(TipAnn=as.logical(as.character(TipAnn)))
         tmp.size <- nrow(tmp.modiann)
         tmp.rate <- sum(tmp.modiann$TipAnn)/tmp.size

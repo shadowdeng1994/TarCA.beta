@@ -2,7 +2,7 @@
 % Please edit documentation in R/add_ExpreBias.R
 \name{add_ExpreBias}
 \alias{add_ExpreBias}
-\title{Title}
+\title{Function for adding ExpreBias field during LEU estimation.}
 \usage{
 add_ExpreBias(ExTree)
 }
@@ -10,12 +10,8 @@ add_ExpreBias(ExTree)
 \item{ExTree}{A ExTree file obtained from conv_ExTree.}
 }
 \value{
-Return
+Return a ExTree file.
 }
 \description{
-Title
-}
-\examples{
-library("TarCA")
-Example
+Function for adding ExpreBias field during LEU estimation.
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/conv_ExTree.R
 \name{conv_ExTree}
 \alias{conv_ExTree}
-\title{Title}
+\title{Convert a tree file and a annotation dataframe to ExTree format.}
 \usage{
 conv_ExTree(Tree, Ann, ForceFactor = TRUE)
 }
@@ -14,12 +14,13 @@ conv_ExTree(Tree, Ann, ForceFactor = TRUE)
 \item{ForceFactor}{Force transform TipAnn into a factor (default TRUE).}
 }
 \value{
-Return
+Return a ExTree file.
 }
 \description{
-Title
+Convert a tree file and a annotation dataframe to ExTree format.
 }
 \examples{
 library("TarCA")
-Example
+load(system.file("Exemplar","Exemplar_TCA.RData",package = "TarCA"))
+tmp.ExTree <- conv_ExTree(Tree = ExemplarData_1$Tree,Ann = ExemplarData_1$Ann)
 }

@@ -6,6 +6,13 @@
 #' @return A list containing processed tree and distribution of the edge length.
 #' @export
 #'
+#' @examples
+#' library(TarCA)
+#' set.seed(123)
+#' tmp.tree <- rtree(100)
+#' fun.MergePolytomy(tmp.tree,EEEpsilon = 0.1)
+#'
+
 fun.MergePolytomy <- function(TTTree,EEEpsilon=0.00001){
   tmp.out <- list()
   tmp.out[["tree"]] <- castor::merge_short_edges(TTTree,edge_length_epsilon = EEEpsilon) %>% .$tree

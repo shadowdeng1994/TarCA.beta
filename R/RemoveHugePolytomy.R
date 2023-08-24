@@ -7,8 +7,9 @@
 #' @return The processed tree.
 #' @export
 #'
+
 fun.RemoveHugePolytomies <- function(TTTree,NNNum){
-  tmp.treedata <- fun.GetTreeData(TTTree)
+  tmp.treedata <- TTTree %>% ggtree %>% .$data
 
   tmp.ConfusedParent <-
     tmp.treedata %>%

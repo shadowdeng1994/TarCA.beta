@@ -10,6 +10,7 @@
 #' tmp.cladesize <- "1 (12), 2 (1), 3 (2)"
 #' fun.TransCladeInfo(tmp.cladesize)
 #'
+
 fun.TransCladeInfo <- function(CCChar){
   stringr::str_split(CCChar,",") %>% unlist %>%
     tbl_df %>%

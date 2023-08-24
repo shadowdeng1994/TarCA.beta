@@ -2,7 +2,7 @@
 % Please edit documentation in R/add_FilterBiasParent.R
 \name{add_FilterBiasParent}
 \alias{add_FilterBiasParent}
-\title{Title}
+\title{Function for adding FilterBiasParent field to a ExTree file.}
 \usage{
 add_FilterBiasParent(ExTree)
 }
@@ -10,12 +10,8 @@ add_FilterBiasParent(ExTree)
 \item{ExTree}{A ExTree file obtained from conv_ExTree.}
 }
 \value{
-Return
+Return a ExTree file.
 }
 \description{
-Title
-}
-\examples{
-library("TarCA")
-Example
+Function for adding FilterBiasParent field to a ExTree file.
 }

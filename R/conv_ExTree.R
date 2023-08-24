@@ -1,17 +1,17 @@
-#' Title
+#' Convert a tree file and a annotation dataframe to ExTree format. 
 #'
 #' @param Tree A tree file of class "phylo" with node labels (using node ID by default).
 #' @param Ann A dataframe with TipLabel and TipAnn (tip labels on the tree file and corresponding cell annotations).
 #' @param ForceFactor Force transform TipAnn into a factor (default TRUE).
 #'
-#' @return Return
+#' @return Return a ExTree file.
 #'
 #' @export
 #'
 #' @examples
 #' library("TarCA")
-#' Example
-
+#' load(system.file("Exemplar","Exemplar_TCA.RData",package = "TarCA"))
+#' tmp.ExTree <- conv_ExTree(Tree = ExemplarData_1$Tree,Ann = ExemplarData_1$Ann)
 
 conv_ExTree <- function(Tree,Ann,ForceFactor=TRUE){
     if(check_TCA_input(Tree,Ann)!="AllPass"){ return() }
