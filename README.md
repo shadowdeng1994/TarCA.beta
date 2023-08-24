@@ -22,7 +22,7 @@ Installation would finish in about one minute.
 
 ## Quickstart
 ```
-library("TarCA")
+library("TarCA.beta")
 ```
 - The following files are needed for TarCA.
 1. A tree file of class "phylo" with node labels.
