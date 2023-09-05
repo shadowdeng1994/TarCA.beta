@@ -31,7 +31,7 @@ Np_Estimator <- function(Tree,Ann,ExTree=NULL,ReturnExTree=FALSE){
     
     tmp.res <- 
     tmp.CladeSizeTable %>% 
-    group_by %>% mutate(LLL=paste0(CladeSize," (",Freq,")")) %>% 
+    group_by %>% dplyr::mutate(LLL=paste0(CladeSize," (",Freq,")")) %>% 
     group_by(TipAnn) %>% summarise(MonoInfo=paste(LLL,collapse = ", "),Total=sum(CladeSize*Freq),Np=Total*(Total-1)/sum(CladeSize*(CladeSize-1)*Freq))
     
     if(ReturnExTree){

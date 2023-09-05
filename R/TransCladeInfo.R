@@ -14,7 +14,7 @@
 fun.TransCladeInfo <- function(CCChar){
   stringr::str_split(CCChar,",") %>% unlist %>%
     tbl_df %>%
-    mutate(value=value %>% gsub("^ +","",.) %>% gsub("[()]","",.)) %>%
+    dplyr::mutate(value=value %>% gsub("^ +","",.) %>% gsub("[()]","",.)) %>%
     separate(value,c("Size","Freq")," ") %>%
-    mutate(Size=Size %>% as.numeric,Freq=Freq %>% as.numeric)
+    dplyr::mutate(Size=Size %>% as.numeric,Freq=Freq %>% as.numeric)
 }

@@ -21,11 +21,11 @@ conv_ExTree <- function(Tree,Ann,ForceFactor=TRUE){
     TreeData <- Tree %>% ggtree %>% .$data
     
     Name2Meta <- TreeData %>% 
-    mutate(ParentLabel=.$label[parent],isRoot=parent==node) %>% 
-    rename(TipLabel=label) %>% left_join(Ann,by="TipLabel") %>% column_to_rownames("TipLabel")
-    if(ForceFactor & !is.factor(Name2Meta$TipAnn)){ Name2Meta <- Name2Meta %>% mutate(TipAnn=factor(TipAnn)) }
+    dplyr::mutate(ParentLabel=.$label[parent],isRoot=parent==node) %>% 
+    dplyr::rename(TipLabel=label) %>% dplyr::left_join(Ann,by="TipLabel") %>% tibble::column_to_rownames("TipLabel")
+    if(ForceFactor & !is.factor(Name2Meta$TipAnn)){ Name2Meta <- Name2Meta %>% dplyr::mutate(TipAnn=factor(TipAnn)) }
     
-    Name2Daughter <- Name2Meta %>% filter(!isRoot) %>% split(f=.$ParentLabel,x=rownames(.))
+    Name2Daughter <- Name2Meta %>% dplyr::filter(!isRoot) %>% split(f=.$ParentLabel,x=rownames(.))
     
     list(
         "Tree"=Tree,

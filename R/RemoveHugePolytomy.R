@@ -13,20 +13,20 @@ fun.RemoveHugePolytomies <- function(TTTree,NNNum){
 
   tmp.ConfusedParent <-
     tmp.treedata %>%
-    filter(isTip) %>%
+    dplyr::filter(isTip) %>%
     group_by(parent) %>% summarise(Count=n()) %>%
     mutate(Rate=Count/sum(Count)) %>%
     arrange(-Count) %>%
-    filter(Count>NNNum)
+    dplyr::filter(Count>NNNum)
 
   if(nrow(tmp.ConfusedParent)>0){
     tmp.treedata %>%
-      filter(isTip) %>%
+      dplyr::filter(isTip) %>%
       right_join(tmp.ConfusedParent) %>%
       select(label) %>%
       mutate(DDD=1) %>%
       right_join(TTTree$tip.label %>% tbl_df %>% rename(label=value)) %>%
-      filter(is.na(DDD)) %>%
+      dplyr::filter(is.na(DDD)) %>%
       .$label %>%
       castor::get_subtree_with_tips(TTTree,.) %>% .$subtree
   }else{
