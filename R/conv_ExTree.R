@@ -13,23 +13,29 @@
 #' load(system.file("Exemplar","Exemplar_TCA.RData",package = "TarCA"))
 #' tmp.ExTree <- conv_ExTree(Tree = ExemplarData_1$Tree,Ann = ExemplarData_1$Ann)
 
-conv_ExTree <- function(Tree,Ann,ForceFactor=TRUE){
-    if(check_TCA_input(Tree,Ann)!="AllPass"){ return() }
+conv_ExTree <- function(Tree,Ann=NULL,ReplaceNode=FALSE,ForceFactor=TRUE){
+    tmp.tree <- Tree
+    tmp.ann <- Ann
+
+    if(is.null(tmp.ann)){ tmp.ann <- tmp.tree$tip.label %>% data.frame(TipLabel=.,TipAnn=.) }
+    if(is.null(tmp.tree$node.label)|ReplaceNode){ tmp.tree$node.label <- paste0("Node_",1:tmp.tree$Nnode) }
+
+    if(check_TCA_input(tmp.tree,tmp.ann)!="AllPass"){ return() }
     
     message("===> Converting to ExTree.")
     
-    TreeData <- Tree %>% ggtree %>% .$data
+    TreeData <- tmp.tree %>% ggtree %>% .$data
     
     Name2Meta <- TreeData %>% 
     dplyr::mutate(ParentLabel=.$label[parent],isRoot=parent==node) %>% 
-    dplyr::rename(TipLabel=label) %>% dplyr::left_join(Ann,by="TipLabel") %>% tibble::column_to_rownames("TipLabel")
+    dplyr::rename(TipLabel=label) %>% dplyr::left_join(tmp.ann,by="TipLabel") %>% tibble::column_to_rownames("TipLabel")
     if(ForceFactor & !is.factor(Name2Meta$TipAnn)){ Name2Meta <- Name2Meta %>% dplyr::mutate(TipAnn=factor(TipAnn)) }
     
     Name2Daughter <- Name2Meta %>% dplyr::filter(!isRoot) %>% split(f=.$ParentLabel,x=rownames(.))
     
     list(
-        "Tree"=Tree,
-        "Ann"=Ann,
+        "Tree"=tmp.tree,
+        "Ann"=tmp.ann,
         "NameList"=Name2Meta %>% rownames,
         "AnnList"=Name2Meta$TipAnn %>% unique %>% na.omit %>% sort,
         "Dim"=c(length(levels(Name2Meta$TipAnn)),nrow(Name2Meta)),

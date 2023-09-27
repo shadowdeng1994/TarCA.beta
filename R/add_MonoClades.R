@@ -7,12 +7,13 @@
 #' @export
 #'
 
-add_MonoClades <- function(ExTree){
+add_MonoClades <- function(ExTree,Sensitivity=1){
     message("===> Adding MonoClades.")
     
     subfun.get_monophyletic_clade <- function(ExTree,NNNodeName){
         tmp.AnnVector <- ExTree$AllDescendants[[NNNodeName]]$TipAnn
-        if(length(unique(tmp.AnnVector))>1){
+        # if(length(unique(tmp.AnnVector))>1){
+        if(max(table(tmp.AnnVector)/length(tmp.AnnVector))<Sensitivity){ 
             # keep going
             tmp.NextLayer <- 
             ExTree$Name2Daughter[[NNNodeName]] %>% 
