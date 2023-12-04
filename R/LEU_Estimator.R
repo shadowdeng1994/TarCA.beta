@@ -23,6 +23,7 @@ LEU_Estimator <- function(Tree,Ann,ExTree=NULL,ReturnExTree=FALSE){
     if(is.null(ExTree)){ ExTree <- conv_ExTree(Tree,Ann,ForceFactor = FALSE) }
     if(is.null(ExTree[["AllDescendants"]])){ ExTree <- add_AllDescendants(ExTree) }
     if(is.null(ExTree[["ExpreBias"]])){ ExTree <- add_ExpreBias(ExTree) }
+    if (all(!ExTree$ExpreBias$BiasParent)) { message("No bias parents detected.");return() }
     if(is.null(ExTree[["FilterBiasParent"]])){ ExTree <- add_FilterBiasParent(ExTree) }
     
     message("===> Estimating Np.")
