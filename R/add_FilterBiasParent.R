@@ -32,7 +32,7 @@ add_FilterBiasParent <- function(ExTree){
         filter(N1>N2)
         if(nrow(tmp.unclearP2D)>0){
             tmp.isP2D <- 
-            unclearP2D %>% 
+            tmp.unclearP2D %>% 
             group_by(Var1,Var2) %>% mutate(isP2D=subfun.isP2D(ExTree,Var1,Var2)) %>% 
             group_by %>% mutate(ParentBias=ExTree$ExpreBias[Var1,"Ratio"],ChildBias=ExTree$ExpreBias[Var2,"Ratio"]) %>% 
             filter(isP2D)
