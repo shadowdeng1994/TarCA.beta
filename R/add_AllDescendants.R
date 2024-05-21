@@ -11,12 +11,28 @@
 add_AllDescendants <- function(ExTree){
     message("===> Adding AllDescendants.")
     
+    # subfun.get_all_descendants <- function(ExTree,NNName){
+    #     if(!ExTree$Name2Meta[NNName,"isTip"]){
+    #         # keep going
+    #         tmp.NextLayer <- 
+    #         ExTree$Name2Daughter[[NNName]] %>% 
+    #         ## using for loop is better than lapply
+    #         lapply(function(nnn){ subfun.get_all_descendants(ExTree,nnn) })
+    #         tmp.NextLayer %>% bind_rows %>% rbind(mutate(.,NodeName=NNName) %>% unique) %>% remove_rownames
+    #     }else{
+    #         # return
+    #         data.frame(NodeName=NNName,TipLabel=NNName,TipAnn=ExTree$Name2Meta[NNName,"TipAnn"])
+    #     }
+    # }
+
     subfun.get_all_descendants <- function(ExTree,NNName){
         if(!ExTree$Name2Meta[NNName,"isTip"]){
             # keep going
-            tmp.NextLayer <- 
-            ExTree$Name2Daughter[[NNName]] %>% 
-            lapply(function(nnn){ subfun.get_all_descendants(ExTree,nnn) })
+            tmp.NextLayer <- list()
+            for(nnn in ExTree$Name2Daughter[[NNName]]){
+                ## using for loop is better than lapply
+                tmp.NextLayer[[nnn]] <- subfun.get_all_descendants(ExTree,nnn)
+            }
             tmp.NextLayer %>% bind_rows %>% rbind(mutate(.,NodeName=NNName) %>% unique) %>% remove_rownames
         }else{
             # return
