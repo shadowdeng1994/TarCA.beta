@@ -116,4 +116,5 @@ This process is estimated to be completed in about __2__ seconds.
 Shanjun Deng, shadowdeng1994@gmail.com.
 
 ## Citations
-When using TarCA please cite:
+When using TarCA please cite: 
+- Deng S, Gong H, Zhang D, et al. A statistical method for quantifying progenitor cells reveals incipient cell fate commitments[J]. Nature Methods, 2024: 1-12.
