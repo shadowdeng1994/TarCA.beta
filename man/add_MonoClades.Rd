@@ -4,7 +4,7 @@
 \alias{add_MonoClades}
 \title{Function for adding MonoClades field to a ExTree file.}
 \usage{
-add_MonoClades(ExTree)
+add_MonoClades(ExTree, Sensitivity = 1)
 }
 \arguments{
 \item{ExTree}{A ExTree file obtained from conv_ExTree.}

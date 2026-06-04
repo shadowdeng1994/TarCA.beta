@@ -4,7 +4,7 @@
 \alias{conv_ExTree}
 \title{Convert a tree file and a annotation dataframe to ExTree format.}
 \usage{
-conv_ExTree(Tree, Ann, ForceFactor = TRUE)
+conv_ExTree(Tree, Ann = NULL, ReplaceNode = FALSE, ForceFactor = TRUE)
 }
 \arguments{
 \item{Tree}{A tree file of class "phylo" with node labels (using node ID by default).}
