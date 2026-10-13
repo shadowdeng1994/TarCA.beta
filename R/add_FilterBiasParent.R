@@ -17,14 +17,8 @@ add_FilterBiasParent <- function(ExTree){
     
     message("===> Adding FilterBiasParent")
     
-    ExTree <- fun.EnsureNodeIndex(ExTree)
-    ni <- ExTree[["NodeIndex"]]
-    ## In a tree two clades overlap iff one contains the other; the DFS
-    ## interval [tin, tout] makes that test O(1) instead of a tip-set intersect.
-    subfun.isP2D <- function(Node_1,Node_2){
-        i1 <- match(Node_1,ni$label)
-        i2 <- match(Node_2,ni$label)
-        ni$tin[i1]<=ni$tin[i2] && ni$tout[i2]<=ni$tout[i1]
+    subfun.isP2D <- function(ExTree,Node_1,Node_2){
+        length(intersect(ExTree$AllDescendants[[Node_1]]$TipLabel,ExTree$AllDescendants[[Node_2]]$TipLabel))>0
     }
     
     tmp.biasparent <- ExTree$ExpreBias %>% filter(BiasParent) %>% arrange(-CladeSize)
@@ -39,7 +33,7 @@ add_FilterBiasParent <- function(ExTree){
         if(nrow(tmp.unclearP2D)>0){
             tmp.isP2D <- 
             tmp.unclearP2D %>% 
-            group_by(Var1,Var2) %>% mutate(isP2D=subfun.isP2D(Var1,Var2)) %>% 
+            group_by(Var1,Var2) %>% mutate(isP2D=subfun.isP2D(ExTree,Var1,Var2)) %>% 
             group_by %>% mutate(ParentBias=ExTree$ExpreBias[Var1,"Ratio"],ChildBias=ExTree$ExpreBias[Var2,"Ratio"]) %>% 
             filter(isP2D)
             if(nrow(tmp.isP2D)>0){

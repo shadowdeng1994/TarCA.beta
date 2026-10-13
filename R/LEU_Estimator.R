@@ -11,28 +11,26 @@
 #'
 #' @examples
 #' library("TarCA.beta")
-#' load(system.file("Exemplar","Exemplar_LEU.RData",package = "TarCA.beta"))
+#' load(system.file("Exemplar","Exemplar_LEU.RData",package = "TarCA"))
 #' tmp.res <- LEU_Estimator(
 #' Tree = ExemplarData_2$Tree,
-#' Ann = ExemplarData_2$Ann
+#' Ann = ExemplarData_2$Ann,
+#' Fileout = NULL,
+#' ReturnNp = TRUE
 #' )
 
 LEU_Estimator <- function(Tree,Ann,ExTree=NULL,ReturnExTree=FALSE){
     if(is.null(ExTree)){ ExTree <- conv_ExTree(Tree,Ann,ForceFactor = FALSE) }
+    if(is.null(ExTree[["AllDescendants"]])){ ExTree <- add_AllDescendants(ExTree) }
     if(is.null(ExTree[["ExpreBias"]])){ ExTree <- add_ExpreBias(ExTree) }
     if (all(!ExTree$ExpreBias$BiasParent)) { message("No bias parents detected.");return() }
     if(is.null(ExTree[["FilterBiasParent"]])){ ExTree <- add_FilterBiasParent(ExTree) }
     
     message("===> Estimating Np.")
     
-    ExTree <- fun.EnsureNodeIndex(ExTree)
-    ni <- ExTree[["NodeIndex"]]
-    tipAnnRaw <- ExTree$Name2Meta$TipAnn[match(ni$label[ni$isTip],rownames(ExTree$Name2Meta))]
-    tmp.pos <- fun.NodeSum(ExTree,as.numeric(as.logical(as.character(tipAnnRaw))))
-    
     tmp.CladeSizeTable <- 
     ExTree[["FilterBiasParent"]] %>% filter(Filter) %>% rownames %>% 
-    lapply(function(nnn){ data.frame(NodeName=nnn,CladeSize=tmp.pos[match(nnn,ni$label)]) }) %>% 
+    lapply(function(nnn){ data.frame(NodeName=nnn,CladeSize=ExTree[["AllDescendants"]][[nnn]] %>% .$TipAnn %>% sum) }) %>% 
     bind_rows %>% 
     group_by(CladeSize) %>% summarise(Freq=n()) %>% 
     rbind(data.frame(CladeSize=1,Freq=sum(Ann$TipAnn)-sum(.$CladeSize*.$Freq)),.) %>% 

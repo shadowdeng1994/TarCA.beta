@@ -8,9 +8,6 @@ add_MonoClades(ExTree, Sensitivity = 1)
 }
 \arguments{
 \item{ExTree}{A ExTree file obtained from conv_ExTree.}
-
-\item{Sensitivity}{A numeric specifying the minimal fraction of the dominant
-annotation for a clade to be considered monophyletic (default 1).}
 }
 \value{
 Return a ExTree file.

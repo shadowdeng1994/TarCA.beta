@@ -13,7 +13,7 @@
 
 fun.TransCladeInfo <- function(CCChar){
   stringr::str_split(CCChar,",") %>% unlist %>%
-    tibble::as_tibble() %>%
+    tbl_df %>%
     dplyr::mutate(value=value %>% gsub("^ +","",.) %>% gsub("[()]","",.)) %>%
     separate(value,c("Size","Freq")," ") %>%
     dplyr::mutate(Size=Size %>% as.numeric,Freq=Freq %>% as.numeric)

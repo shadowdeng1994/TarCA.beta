@@ -4,7 +4,7 @@
 \alias{Np_Estimator}
 \title{Estimate Np using cell phylogeny for each sub-population.}
 \usage{
-Np_Estimator(Tree, Ann, ExTree = NULL, ReturnExTree = FALSE, Sensitivity = 1)
+Np_Estimator(Tree, Ann, ExTree = NULL, ReturnExTree = FALSE)
 }
 \arguments{
 \item{Tree}{A tree file of class "phylo" with node labels (using node ID by default).}
@@ -14,11 +14,6 @@ Np_Estimator(Tree, Ann, ExTree = NULL, ReturnExTree = FALSE, Sensitivity = 1)
 \item{ExTree}{(optional) A ExTree file obtained from conv_ExTree.}
 
 \item{ReturnExTree}{Output in ExTree format (default FALSE).}
-
-\item{Sensitivity}{A numeric in (0,1] passed to add_MonoClades. Default 1
-requires every tip of a clade to share one annotation; lower values (e.g.
-0.9) call a clade monophyletic once its dominant annotation reaches that
-fraction of the tips.}
 }
 \value{
 A dataframe storing the inferred Np for each cell type.
@@ -28,7 +23,7 @@ Estimate Np using cell phylogeny for each sub-population.
 }
 \examples{
 library("TarCA.beta")
-load(system.file("Exemplar","Exemplar_TCA.RData",package = "TarCA.beta"))
+load(system.file("Exemplar","Exemplar_TCA.RData",package = "TarCA"))
 tmp.res <- Np_Estimator(
 Tree = ExemplarData_1$Tree,
 Ann = ExemplarData_1$Ann

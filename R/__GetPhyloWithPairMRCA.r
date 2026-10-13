@@ -4,9 +4,6 @@
 #'
 #' @return A tree file of class "phylo"
 #'
-#' @importFrom ape as.phylo
-#' @importFrom castor get_pairwise_mrcas
-#'
 #' @examples
 #' library(dplyr)
 #' library(tidyr)

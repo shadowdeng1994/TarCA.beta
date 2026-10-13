@@ -20,7 +20,7 @@ Merge short edge into polytomy
 \examples{
 library(TarCA.beta)
 set.seed(123)
-tmp.tree <- ape::rtree(100)
+tmp.tree <- rtree(100)
 fun.MergePolytomy(tmp.tree,EEEpsilon = 0.1)
 
 }
