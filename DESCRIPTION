@@ -17,5 +17,6 @@ Depends:
 Imports:
     ggplot2,
     stringr,
-    castor
+    castor,
+    ape
 Config/roxygen2/version: 8.0.0

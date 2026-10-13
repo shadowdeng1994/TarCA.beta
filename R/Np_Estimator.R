@@ -4,6 +4,10 @@
 #' @param Ann A dataframe with TipLabel and TipAnn (tip labels on the tree file and corresponding cell annotations).
 #' @param ExTree (optional) A ExTree file obtained from conv_ExTree.
 #' @param ReturnExTree Output in ExTree format (default FALSE).
+#' @param Sensitivity A numeric in (0,1] passed to add_MonoClades. Default 1
+#'   requires every tip of a clade to share one annotation; lower values (e.g.
+#'   0.9) call a clade monophyletic once its dominant annotation reaches that
+#'   fraction of the tips.
 #'
 #' @return A dataframe storing the inferred Np for each cell type. 
 #'
@@ -11,16 +15,19 @@
 #'
 #' @examples
 #' library("TarCA.beta")
-#' load(system.file("Exemplar","Exemplar_TCA.RData",package = "TarCA"))
+#' load(system.file("Exemplar","Exemplar_TCA.RData",package = "TarCA.beta"))
 #' tmp.res <- Np_Estimator(
 #' Tree = ExemplarData_1$Tree,
 #' Ann = ExemplarData_1$Ann
 #' )
 
-Np_Estimator <- function(Tree,Ann,ExTree=NULL,ReturnExTree=FALSE){
+Np_Estimator <- function(Tree,Ann,ExTree=NULL,ReturnExTree=FALSE,Sensitivity=1){
     if(is.null(ExTree)){ ExTree <- conv_ExTree(Tree,Ann) }
-    if(is.null(ExTree[["AllDescendants"]])){ ExTree <- add_AllDescendants(ExTree) }
-    if(is.null(ExTree[["MonoClades"]])){ ExTree <- add_MonoClades(ExTree) }
+    tmp.sens <- attr(ExTree[["MonoClades"]],"Sensitivity")
+    if(is.null(tmp.sens)){ tmp.sens <- 1 }
+    if(is.null(ExTree[["MonoClades"]]) || !isTRUE(all.equal(as.numeric(tmp.sens),as.numeric(Sensitivity)))){
+        ExTree <- add_MonoClades(ExTree,Sensitivity=Sensitivity)
+    }
     
     message("===> Estimating Np.")
     

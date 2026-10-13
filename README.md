@@ -44,7 +44,7 @@ library("TarCA.beta")
 
 - Effective number of progenitor can be inferred with `Np_Estimator`.
 - Modified algorithm for detection of lineage specific expression upregulation (LEU) can be called with `LEU_Estimator`.
-- (optional) All intermediate data are stored in ExTree format (control with _ReturnExTree_, default FALSE).
+- (optional) All intermediate data are stored in ExTree format (control with _ReturnExTree_, default FALSE). See [Work with the ExTree format](#work-with-the-extree-format), including how to add the per-node descendant tables with `add_AllDescendants`.
 
 ## Estimate Np with exemplar dataset.
 - Load exemplar dataset. 
@@ -62,7 +62,6 @@ tmp.result <- Np_Estimator(
 ```
 > ===> Checking input files.  
 > ===> Converting to ExTree.  
-> ===> Adding AllDescendants.  
 > ===> Adding MonoClades.  
 > ===> Estimating Np.  
 
@@ -80,6 +79,18 @@ tmp.result <- Np_Estimator(
 > | O7 | 1 (50), 2 (37), 3 (10), 4 (3), 6 (1) | 172 | 147 |
 > | O8 | 1 (5), 2 (3) | 11 | 18.3 |
 > | O9 | 1 (12), 2 (1), 3 (2) | 20 | 27.1 |
+
+- Relax the monophyly requirement with `Sensitivity` (default `1`). A clade is
+  called monophyletic once its dominant annotation covers at least that fraction
+  of its tips, and contributes the number of its dominant-annotation tips as its
+  size. With `Sensitivity = 1` every tip must share one annotation.
+```
+tmp.result <- Np_Estimator(
+  Tree = tmp.tree,
+  Ann = tmp.ann,
+  Sensitivity = 0.9
+)
+```
 
 This process is estimated to be completed in about __3__ seconds.
 
@@ -99,7 +110,6 @@ tmp.result <- LEU_Estimator(
 ```
 > ===> Checking input files.  
 > ===> Converting to ExTree.  
-> ===> Adding AllDescendants.  
 > ===> Adding ExpreBias.  
 > ===> Adding FilterBiasParent.  
 > ===> Estimating Np.  
@@ -110,6 +120,33 @@ tmp.result <- LEU_Estimator(
 > | TRUE | 1 (23), 2 (5), 4 (2) | 41 | 48.2 |
 
 This process is estimated to be completed in about __2__ seconds.
+
+## Big tree example.
+- A larger exemplar (157,146 tips, 80 cell types) is stored in the same
+`Tree`/`Ann` format and can be loaded the same way.
+```
+load(system.file("BigTree","Exemplar_BigTree.RData",package = "TarCA.beta"))
+tmp.tree <- BigTreeData$Tree
+tmp.ann  <- BigTreeData$Ann
+```
+- `Np_Estimator` finishes on this tree in about __2__ seconds.
+
+## Work with the ExTree format.
+All intermediate data are stored in an `ExTree` list. Build it explicitly with
+`conv_ExTree`, or keep it from an estimator with `ReturnExTree = TRUE`.
+```
+tmp.ExTree <- conv_ExTree(Tree = tmp.tree, Ann = tmp.ann)
+tmp.ExTree <- Np_Estimator(Tree = tmp.tree, Ann = tmp.ann, ReturnExTree = TRUE)
+```
+- Add the per-node descendant tables (each node mapped to the `TipLabel`/`TipAnn`
+of all tips below it). This is an optional, standalone step: the main estimators
+no longer require it, so call it only when you need the descendants.
+```
+tmp.ExTree <- add_AllDescendants(tmp.ExTree)
+tmp.ExTree$AllDescendants[["Node_1"]]  # TipLabel and TipAnn of every tip under Node_1
+```
+- Other fields such as `MonoClades`, `ExpreBias` and `FilterBiasParent` are added
+by the corresponding `add_*` functions and reused if already present.
 
 ## Contributing
 ### Contributors

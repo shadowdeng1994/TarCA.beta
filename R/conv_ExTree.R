@@ -2,6 +2,7 @@
 #'
 #' @param Tree A tree file of class "phylo" with node labels (using node ID by default).
 #' @param Ann A dataframe with TipLabel and TipAnn (tip labels on the tree file and corresponding cell annotations).
+#' @param ReplaceNode Replace the node labels with auto-generated IDs (default FALSE).
 #' @param ForceFactor Force transform TipAnn into a factor (default TRUE).
 #'
 #' @return Return a ExTree file.
@@ -10,7 +11,7 @@
 #'
 #' @examples
 #' library("TarCA.beta")
-#' load(system.file("Exemplar","Exemplar_TCA.RData",package = "TarCA"))
+#' load(system.file("Exemplar","Exemplar_TCA.RData",package = "TarCA.beta"))
 #' tmp.ExTree <- conv_ExTree(Tree = ExemplarData_1$Tree,Ann = ExemplarData_1$Ann)
 
 conv_ExTree <- function(Tree,Ann=NULL,ReplaceNode=FALSE,ForceFactor=TRUE){
@@ -24,11 +25,21 @@ conv_ExTree <- function(Tree,Ann=NULL,ReplaceNode=FALSE,ForceFactor=TRUE){
     
     message("===> Converting to ExTree.")
     
-    TreeData <- tmp.tree %>% ggtree %>% .$data
+    NodeIndex <- fun.NodeIndex(tmp.tree)
+    N <- NodeIndex$N
+    node.label.all <- NodeIndex$label
     
-    Name2Meta <- TreeData %>% 
-    dplyr::mutate(ParentLabel=.$label[parent],isRoot=parent==node) %>% 
-    dplyr::rename(TipLabel=label) %>% dplyr::left_join(tmp.ann,by="TipLabel") %>% tibble::column_to_rownames("TipLabel")
+    Name2Meta <- data.frame(
+        node=seq_len(N),
+        parent=NodeIndex$parent,
+        label=node.label.all,
+        ParentLabel=node.label.all[NodeIndex$parent],
+        isTip=NodeIndex$isTip,
+        isRoot=NodeIndex$parent==seq_len(N),
+        TipAnn=tmp.ann$TipAnn[match(node.label.all,tmp.ann$TipLabel)],
+        stringsAsFactors=FALSE,
+        row.names=node.label.all
+    )
     if(ForceFactor & !is.factor(Name2Meta$TipAnn)){ Name2Meta <- Name2Meta %>% dplyr::mutate(TipAnn=factor(TipAnn)) }
     
     Name2Daughter <- Name2Meta %>% dplyr::filter(!isRoot) %>% split(f=.$ParentLabel,x=rownames(.))
@@ -40,6 +51,7 @@ conv_ExTree <- function(Tree,Ann=NULL,ReplaceNode=FALSE,ForceFactor=TRUE){
         "AnnList"=Name2Meta$TipAnn %>% unique %>% na.omit %>% sort,
         "Dim"=c(length(levels(Name2Meta$TipAnn)),nrow(Name2Meta)),
         "Name2Meta"=Name2Meta,
-        "Name2Daughter"=Name2Daughter
+        "Name2Daughter"=Name2Daughter,
+        "NodeIndex"=NodeIndex
     )
 }

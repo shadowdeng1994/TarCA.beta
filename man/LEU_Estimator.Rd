@@ -23,11 +23,9 @@ Detection of lineage specific expression upregulation.
 }
 \examples{
 library("TarCA.beta")
-load(system.file("Exemplar","Exemplar_LEU.RData",package = "TarCA"))
+load(system.file("Exemplar","Exemplar_LEU.RData",package = "TarCA.beta"))
 tmp.res <- LEU_Estimator(
 Tree = ExemplarData_2$Tree,
-Ann = ExemplarData_2$Ann,
-Fileout = NULL,
-ReturnNp = TRUE
+Ann = ExemplarData_2$Ann
 )
 }

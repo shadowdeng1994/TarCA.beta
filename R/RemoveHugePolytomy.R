@@ -25,7 +25,7 @@ fun.RemoveHugePolytomies <- function(TTTree,NNNum){
       right_join(tmp.ConfusedParent) %>%
       select(label) %>%
       mutate(DDD=1) %>%
-      right_join(TTTree$tip.label %>% tbl_df %>% rename(label=value)) %>%
+      right_join(TTTree$tip.label %>% tibble::as_tibble() %>% rename(label=value)) %>%
       dplyr::filter(is.na(DDD)) %>%
       .$label %>%
       castor::get_subtree_with_tips(TTTree,.) %>% .$subtree

@@ -11,6 +11,8 @@ conv_ExTree(Tree, Ann = NULL, ReplaceNode = FALSE, ForceFactor = TRUE)
 
 \item{Ann}{A dataframe with TipLabel and TipAnn (tip labels on the tree file and corresponding cell annotations).}
 
+\item{ReplaceNode}{Replace the node labels with auto-generated IDs (default FALSE).}
+
 \item{ForceFactor}{Force transform TipAnn into a factor (default TRUE).}
 }
 \value{
@@ -21,6 +23,6 @@ Convert a tree file and a annotation dataframe to ExTree format.
 }
 \examples{
 library("TarCA.beta")
-load(system.file("Exemplar","Exemplar_TCA.RData",package = "TarCA"))
+load(system.file("Exemplar","Exemplar_TCA.RData",package = "TarCA.beta"))
 tmp.ExTree <- conv_ExTree(Tree = ExemplarData_1$Tree,Ann = ExemplarData_1$Ann)
 }

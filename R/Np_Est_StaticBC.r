@@ -7,7 +7,10 @@
 #'
 #' @export
 #'
-#' @examples Np_Est_StaticBC(BCTable,Ann)
+#' @examples
+#' BCTable <- data.frame(TipLabel=c("Cell_1","Cell_2","Cell_3"), StaticBC=c("BC1","BC1","BC2"))
+#' Ann <- data.frame(TipLabel=c("Cell_1","Cell_2","Cell_3"), TipAnn=c("O1","O1","O2"))
+#' Np_Est_StaticBC(BCTable, Ann)
 #'
 
 Np_Est_StaticBC <- function(BCTable,Ann){
